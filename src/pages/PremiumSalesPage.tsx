@@ -90,7 +90,10 @@ const Header: React.FC = () => {
       <div className="actions">
         <label className="theme-switch">
           <span>Theme</span>
-          <select value={theme} onChange={(e) => setTheme(e.target.value as any)}>
+          <select 
+            value={theme} 
+            onChange={(e) => setTheme(e.target.value as ThemeName)}
+          >
             <option value="technologyForest">Night — TechnologyForest</option>
             <option value="technologyForestDaylight">Daylight — TechnologyForest</option>
           </select>
@@ -100,7 +103,6 @@ const Header: React.FC = () => {
     </header>
   );
 };
-
 export const PremiumSalesPage: React.FC = () => {
   return (
     <ThemeProvider initial="technologyForest">
