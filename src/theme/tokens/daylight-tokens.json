@@ -1,0 +1,44 @@
+{
+  "colors": {
+    "background": {
+      "sky": "#EAF6FF",
+      "soft": "#DDEEFF",
+      "panel": "rgba(230, 245, 255, 0.86)"
+    },
+    "glow": {
+      "periwinkle": "#A6B5FF",
+      "matteBlue": "#9BBFF7",
+      "sunflower": "#F6D87A",
+      "smokeySun": "#E6C77A",
+      "apricot": "#FFB78A",
+      "softPink": "#FFD9F2"
+    },
+    "accent": {
+      "periwinkleDeep": "#8DA0FF",
+      "babyBlue": "#A7D6FF",
+      "mutedSlate": "#6E7D8A"
+    },
+    "text": {
+      "primary": "#05283A",
+      "secondary": "#335166"
+    },
+    "brand": {
+      "treeLeaf": "#6CCF9A",
+      "labInk": "#3B6EA3"
+    }
+  },
+  "radii": {
+    "sm": "6px",
+    "md": "10px",
+    "lg": "18px"
+  },
+  "spacing": {
+    "sm": "8px",
+    "md": "14px",
+    "lg": "24px"
+  },
+  "shadows": {
+    "soft": "0 6px 24px rgba(30, 60, 90, 0.08)",
+    "glow": "0 8px 36px rgba(138, 160, 255, 0.12)"
+  }
+}

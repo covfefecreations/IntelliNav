@@ -1,0 +1,612 @@
+/* TechTreeSmartNav.css - Enhanced with new features */
+
+:root {
+–dock-bg: rgba(10, 12, 16, 0.92);
+–accent: #60a5fa;
+–accent-hover: #3b82f6;
+–error-bg: #ef4444;
+–success-bg: #10b981;
+–size: 1;
+–icon-size: 48px;
+–gap: 10px;
+–corner-gap: 14px;
+–radius: 12px;
+–transition-speed: 160ms;
+}
+
+/* ============================================================================
+CONTAINER
+============================================================================ */
+
+.tt-dock {
+position: fixed;
+z-index: 9999;
+right: var(–corner-gap);
+bottom: var(–corner-gap);
+transform-origin: bottom right;
+display: flex;
+align-items: center;
+gap: var(–gap);
+pointer-events: auto;
+user-select: none;
+-webkit-user-select: none;
+-webkit-touch-callout: none; /* Prevent iOS callout menu */
+touch-action: none; /* Improve touch responsiveness */
+}
+
+/* Orientation classes */
+.tt-dock.vertical {
+flex-direction: column-reverse; /* base at bottom */
+}
+
+.tt-dock.horizontal {
+flex-direction: row-reverse; /* base at right */
+}
+
+/* Collapsed state hides items */
+.tt-dock.collapsed .tt-items {
+display: none;
+}
+
+/* Expanded state shows items with animation */
+.tt-dock.expanded .tt-items {
+animation: fadeSlideIn var(–transition-speed) ease-out;
+}
+
+@keyframes fadeSlideIn {
+from {
+opacity: 0;
+transform: translateY(8px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* ============================================================================
+BASE BUTTON
+============================================================================ */
+
+.tt-base {
+width: var(–icon-size);
+height: var(–icon-size);
+border-radius: 14px;
+background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.08));
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+display: grid;
+place-items: center;
+box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+color: white;
+cursor: grab;
+border: none;
+transition: transform var(–transition-speed) ease, box-shadow var(–transition-speed) ease;
+position: relative;
+}
+
+.tt-base:hover {
+transform: scale(1.05);
+box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+}
+
+.tt-base:active {
+cursor: grabbing;
+transform: scale(0.98);
+}
+
+.tt-base:focus-visible {
+outline: 3px solid var(–accent);
+outline-offset: 3px;
+}
+
+.tt-base svg {
+color: white;
+transition: transform var(–transition-speed) ease;
+}
+
+/* Rotate icon when expanded */
+.tt-dock.expanded .tt-base svg {
+transform: rotate(90deg);
+}
+
+/* Edit mode - prevent grab cursor */
+.tt-dock.editing .tt-base {
+cursor: default;
+box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 0 2px var(–accent);
+}
+
+/* ============================================================================
+LONG-PRESS VISUAL FEEDBACK
+============================================================================ */
+
+.tt-dock.longpress-active .tt-base {
+animation: longPressIndicator 1.2s ease-in-out forwards;
+}
+
+@keyframes longPressIndicator {
+0% {
+box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), 0 0 0 0 var(–accent);
+}
+100% {
+box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), 0 0 0 3px var(–accent);
+}
+}
+
+/* Pulse effect during long-press */
+.tt-dock.longpress-active .tt-base svg {
+animation: pulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+from {
+transform: scale(1);
+opacity: 1;
+}
+to {
+transform: scale(1.1);
+opacity: 0.8;
+}
+}
+
+/* ============================================================================
+ITEMS CONTAINER
+============================================================================ */
+
+.tt-items {
+display: flex;
+gap: 8px;
+align-items: center;
+position: relative;
+}
+
+/* Vertical orientation adjustments */
+.tt-dock.vertical .tt-items {
+flex-direction: column;
+}
+
+/* Horizontal orientation adjustments */
+.tt-dock.horizontal .tt-items {
+flex-direction: row;
+}
+
+/* ============================================================================
+ITEM BUTTONS
+============================================================================ */
+
+.tt-item {
+width: 44px;
+height: 44px;
+border-radius: 10px;
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+display: grid;
+place-items: center;
+color: white;
+border: none;
+padding: 6px;
+cursor: pointer;
+transition: transform var(–transition-speed) ease, box-shadow var(–transition-speed) ease,
+background var(–transition-speed) ease;
+position: relative;
+}
+
+.tt-item:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+background: rgba(255, 255, 255, 0.08);
+}
+
+.tt-item:active {
+transform: translateY(-1px);
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tt-item:focus-visible {
+outline: 2px solid var(–accent);
+outline-offset: 2px;
+}
+
+.tt-item:disabled {
+cursor: default;
+opacity: 0.6;
+}
+
+.tt-item:disabled:hover {
+transform: none;
+box-shadow: none;
+background: rgba(255, 255, 255, 0.03);
+}
+
+/* Icon styling within items */
+.tt-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+pointer-events: none;
+}
+
+/* ============================================================================
+EDITING MODE
+============================================================================ */
+
+.tt-editable {
+border: 1px dashed rgba(255, 255, 255, 0.15);
+background: rgba(255, 255, 255, 0.05);
+}
+
+.tt-editable:hover {
+border-color: var(–accent);
+background: rgba(96, 165, 250, 0.1);
+}
+
+/* Show drag handle cursor in edit mode */
+.tt-dock.editing .tt-item:not(:disabled) {
+cursor: grab;
+}
+
+.tt-dock.editing .tt-item:not(:disabled):active {
+cursor: grabbing;
+}
+
+/* ============================================================================
+DRAGGING STATES
+============================================================================ */
+
+.dragging {
+opacity: 0.5;
+transform: scale(1.05);
+z-index: 10;
+}
+
+.drag-overlay {
+display: grid;
+place-items: center;
+width: 44px;
+height: 44px;
+border-radius: 10px;
+background: rgba(96, 165, 250, 0.2);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+color: white;
+border: 2px solid var(–accent);
+opacity: 0.95;
+transform: scale(1.1);
+cursor: grabbing;
+}
+
+/* ============================================================================
+EDIT PANEL
+============================================================================ */
+
+.tt-edit-panel {
+position: absolute;
+top: 100%;
+right: 0;
+margin-top: 12px;
+padding: 12px;
+border-radius: 10px;
+background: var(–dock-bg);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+display: flex;
+flex-direction: column;
+gap: 10px;
+min-width: 200px;
+border: 1px solid rgba(255, 255, 255, 0.1);
+animation: editPanelSlideIn 0.2s ease-out;
+}
+
+@keyframes editPanelSlideIn {
+from {
+opacity: 0;
+transform: translateY(-8px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Vertical orientation - panel appears above */
+.tt-dock.vertical .tt-edit-panel {
+bottom: 100%;
+top: auto;
+margin-bottom: 12px;
+margin-top: 0;
+}
+
+/* Horizontal orientation - panel appears to the left */
+.tt-dock.horizontal .tt-edit-panel {
+right: 100%;
+top: 0;
+margin-right: 12px;
+margin-top: 0;
+}
+
+.tt-edit-label {
+color: rgba(255, 255, 255, 0.9);
+font-size: 13px;
+font-weight: 500;
+letter-spacing: 0.3px;
+}
+
+.tt-slider {
+width: 100%;
+height: 6px;
+border-radius: 3px;
+background: rgba(255, 255, 255, 0.1);
+outline: none;
+-webkit-appearance: none;
+appearance: none;
+cursor: pointer;
+}
+
+.tt-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: var(–accent);
+cursor: pointer;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+transition: transform var(–transition-speed) ease, background var(–transition-speed) ease;
+}
+
+.tt-slider::-webkit-slider-thumb:hover {
+transform: scale(1.15);
+background: var(–accent-hover);
+}
+
+.tt-slider::-webkit-slider-thumb:active {
+transform: scale(1.05);
+}
+
+.tt-slider::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: var(–accent);
+cursor: pointer;
+border: none;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+transition: transform var(–transition-speed) ease, background var(–transition-speed) ease;
+}
+
+.tt-slider::-moz-range-thumb:hover {
+transform: scale(1.15);
+background: var(–accent-hover);
+}
+
+.tt-slider::-moz-range-thumb:active {
+transform: scale(1.05);
+}
+
+.tt-slider:focus-visible {
+outline: 2px solid var(–accent);
+outline-offset: 2px;
+}
+
+.tt-done-btn {
+background: var(–accent);
+color: white;
+padding: 8px 16px;
+border-radius: 8px;
+border: none;
+font-weight: 600;
+font-size: 14px;
+cursor: pointer;
+transition: background var(–transition-speed) ease, transform var(–transition-speed) ease;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tt-done-btn:hover {
+background: var(–accent-hover);
+transform: translateY(-1px);
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tt-done-btn:active {
+transform: translateY(0);
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.tt-done-btn:focus-visible {
+outline: 2px solid white;
+outline-offset: 2px;
+}
+
+/* ============================================================================
+ERROR DISPLAY
+============================================================================ */
+
+.tt-error {
+position: absolute;
+bottom: 100%;
+right: 0;
+background: var(–error-bg);
+color: white;
+padding: 6px 12px;
+border-radius: 6px;
+font-size: 12px;
+font-weight: 500;
+margin-bottom: 10px;
+white-space: nowrap;
+max-width: 250px;
+overflow: hidden;
+text-overflow: ellipsis;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+animation: errorSlideIn 0.3s ease-out;
+z-index: 10000;
+}
+
+@keyframes errorSlideIn {
+from {
+opacity: 0;
+transform: translateY(8px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Horizontal orientation - error appears to left */
+.tt-dock.horizontal .tt-error {
+right: 100%;
+bottom: 0;
+margin-right: 10px;
+margin-bottom: 0;
+}
+
+/* ============================================================================
+RESPONSIVE ADJUSTMENTS
+============================================================================ */
+
+@media (max-width: 520px) {
+:root {
+–corner-gap: 10px;
+–icon-size: 44px;
+–gap: 8px;
+}
+
+.tt-item {
+width: 40px;
+height: 40px;
+}
+
+.tt-edit-panel {
+min-width: 180px;
+padding: 10px;
+font-size: 12px;
+}
+
+.tt-done-btn {
+padding: 6px 12px;
+font-size: 13px;
+}
+
+/* Prevent panel from going off-screen on small devices */
+.tt-dock.vertical .tt-edit-panel {
+max-width: calc(100vw - 2 * var(–corner-gap));
+}
+
+.tt-dock.horizontal .tt-edit-panel {
+max-height: calc(100vh - 2 * var(–corner-gap));
+}
+}
+
+@media (max-width: 360px) {
+:root {
+–icon-size: 40px;
+–corner-gap: 8px;
+}
+
+.tt-item {
+width: 36px;
+height: 36px;
+}
+
+.tt-error {
+font-size: 11px;
+padding: 4px 8px;
+max-width: 180px;
+}
+}
+
+/* ============================================================================
+DARK MODE ADJUSTMENTS (if system preference changes)
+============================================================================ */
+
+@media (prefers-color-scheme: light) {
+:root {
+–dock-bg: rgba(255, 255, 255, 0.95);
+}
+
+.tt-base,
+.tt-item {
+color: #1a1a1a;
+}
+
+.tt-base svg,
+.tt-icon {
+color: #1a1a1a;
+}
+
+.tt-item {
+background: rgba(0, 0, 0, 0.05);
+}
+
+.tt-item:hover {
+background: rgba(0, 0, 0, 0.1);
+}
+
+.tt-edit-label {
+color: rgba(0, 0, 0, 0.9);
+}
+
+.tt-slider {
+background: rgba(0, 0, 0, 0.1);
+}
+
+.tt-edit-panel {
+border-color: rgba(0, 0, 0, 0.1);
+}
+}
+
+/* ============================================================================
+ACCESSIBILITY - REDUCED MOTION
+============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+*,
+*::before,
+*::after {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.01ms !important;
+}
+
+.tt-dock.longpress-active .tt-base {
+animation: none;
+box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), 0 0 0 3px var(–accent);
+}
+
+.tt-dock.longpress-active .tt-base svg {
+animation: none;
+}
+}
+
+/* ============================================================================
+HIGH CONTRAST MODE
+============================================================================ */
+
+@media (prefers-contrast: high) {
+.tt-base,
+.tt-item {
+border: 2px solid currentColor;
+}
+
+.tt-edit-panel {
+border: 2px solid var(–accent);
+}
+
+.tt-item:focus-visible,
+.tt-base:focus-visible {
+outline-width: 4px;
+}
+}
+
+/* ============================================================================
+PRINT STYLES (hide dock when printing)
+============================================================================ */
+
+@media print {
+.tt-dock {
+display: none !important;
+}
+}

@@ -1,0 +1,122 @@
+:root {
+  --op-night: #0b0e1a;
+  --op-mid: #151b2f;
+  --op-purple: #2d2357;
+  --op-candy-blue: #6ce8ff;
+  --op-candy-pink: #ff72d0;
+  --op-star: #ffd86b;
+  --op-apricot: #ffb38a;
+  --op-melon: #ff6f6c;
+}
+
+.op-landing {
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 10%, var(--op-purple), var(--op-night));
+  color: white;
+  padding-bottom: 6rem;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* HERO */
+.op-hero {
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+  position: relative;
+}
+
+.op-hero-logo {
+  width: 88px;
+  height: 88px;
+  margin-bottom: 1rem;
+}
+
+.op-hero-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.op-hero-sub {
+  margin-top: .5rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.op-hero-sub span {
+  color: var(--op-candy-blue);
+}
+
+/* star effect */
+.op-hero-stars {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 2px, var(--op-star) 0, transparent 80%) 20% 30%,
+    radial-gradient(circle 2px, var(--op-candy-pink) 0, transparent 80%) 70% 60%,
+    radial-gradient(circle 2px, var(--op-candy-blue) 0, transparent 80%) 50% 20%;
+  background-size: 4px 4px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* PRINCIPLES */
+.op-principles {
+  padding: 2.5rem 1.5rem;
+}
+.op-principles h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+.op-principles ul {
+  list-style: none;
+  padding: 0;
+}
+.op-principles li {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: .9rem;
+  font-size: 1.1rem;
+}
+
+/* CARDS */
+.op-browser {
+  padding: 2.5rem 1.5rem;
+}
+
+.op-cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.op-card {
+  display: block;
+  background: rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  border-radius: .75rem;
+  backdrop-filter: blur(10px);
+  transition: 200ms ease;
+  text-decoration: none;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.op-card:hover {
+  border-color: var(--op-candy-blue);
+  transform: translateY(-3px);
+}
+
+.op-card-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.op-card-sub {
+  font-size: .95rem;
+  opacity: .8;
+}
+
+/* FOOTER */
+.op-foot {
+  margin-top: 4rem;
+  text-align: center;
+  opacity: .6;
+  font-size: .9rem;
+}

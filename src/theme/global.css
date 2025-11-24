@@ -1,0 +1,108 @@
+/* ===========================================
+   OswegoPark Labs – TechnologyForest Theme
+   Global CSS Variables
+   =========================================== */
+
+:root {
+  /* Backgrounds */
+  --bg-deepNight: #0a0d15;
+  --bg-forestShadow: #0f1320;
+  --bg-panel: rgba(20, 25, 40, 0.7);
+
+  /* Glows (Candy Colors) */
+  --glow-apricot: #ffb170;
+  --glow-melonRed: #ff6a6a;
+  --glow-electricBlue: #64c8ff;
+  --glow-candyPink: #ff7fd1;
+  --glow-sunflower: #ffd447;
+  --glow-forestGreen: #5fcc7a;
+  --glow-brown: #a56b4f;
+  --glow-vcrRed: #ff3b3b;
+  --glow-periwinkle: #a5a8ff;
+
+  /* Accents */
+  --accent-purple: #4d3c78;
+  --accent-indigo: #2a235a;
+  --accent-midnight: #121527;
+
+  /* Text */
+  --text-primary: #eaf2ff;
+  --text-secondary: #9ba8c7;
+
+  /* Spacing */
+  --spacing-xxs: 2px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-xxl: 32px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-round: 50%;
+
+  /* Shadows */
+  --shadow-softGlow: 0px 0px 12px rgba(100, 150, 255, 0.35);
+  --shadow-sharpGlow: 0px 0px 18px rgba(255, 110, 200, 0.45);
+  --shadow-ambient: 0px 4px 20px rgba(0, 0, 0, 0.35);
+
+  /* Typography */
+  --font-sans: 'Inter', 'SF Pro Text', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Global Base */
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-deepNight);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Ambient star-grain texture */
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at top, rgba(80, 120, 255, 0.08), transparent 70%),
+    radial-gradient(circle at 20% 80%, rgba(255, 150, 80, 0.05), transparent 60%),
+    url('data:image/svg+xml;utf8,<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="1" fill="white" opacity="0.3"/><circle cx="200" cy="80" r="1" fill="white" opacity="0.25"/><circle cx="350" cy="120" r="1" fill="white" opacity="0.2"/></svg>');
+  mix-blend-mode: screen;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* Glow helper classes */
+.glow-blue {
+  filter: drop-shadow(0 0 8px var(--glow-electricBlue));
+}
+
+.glow-pink {
+  filter: drop-shadow(0 0 8px var(--glow-candyPink));
+}
+
+.glow-apricot {
+  filter: drop-shadow(0 0 8px var(--glow-apricot));
+}
+
+/* Floating panels */
+.oswego-panel {
+  background: var(--bg-panel);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-ambient);
+  padding: var(--spacing-lg);
+}
+
+/* Better touch responsiveness */
+* {
+  touch-action: manipulation;
+}
