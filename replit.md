@@ -62,10 +62,23 @@ src/
 - **ES Module:** Configured for ES module compatibility
 
 ### Deployment
+
+#### Replit Deployment
 The app is configured for **Autoscale Deployment** on Replit:
 - **Build Command:** `npm run build`
 - **Run Command:** `npm run preview`
 - **Output:** `dist/` directory
+
+#### Vercel Deployment
+The app is configured for **Vercel deployment**:
+- **vercel.json:** Configured with build output directory `dist/`
+- **Build Command:** `npm run build`
+- **Dev Command:** `npm run dev`
+- **Deployment Steps:**
+  1. Connect your GitHub repository to Vercel
+  2. Vercel will automatically detect the Vite configuration
+  3. No additional configuration needed - it will use `vercel.json`
+  4. Your app will be live at a Vercel URL
 
 ## Recent Changes (November 24, 2025)
 1. **Vite Configuration:** Updated to run on port 5000 with proper Replit compatibility
