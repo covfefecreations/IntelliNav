@@ -1,6 +1,8 @@
-run = "cowsay Configure me!"
-entrypoint = "README.md"
+language = "nodejs"
+run = "npm run dev"
 
-[nix]
-channel = "stable-24_05"
-packages = ["cowsay"]
+[env]
+NODE_ENV = "development"
+
+[ports]
+0 = { label = "web", port = 5000, description = "Vite Dev Server" }
