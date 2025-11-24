@@ -1,72 +1,29 @@
-/* ===========================================
-   OswegoPark Labs – TechnologyForest Theme
-   Global CSS Variables
-   =========================================== */
-
-:root {
-  /* Backgrounds */
-  --bg-deepNight: #0a0d15;
-  --bg-forestShadow: #0f1320;
-  --bg-panel: rgba(20, 25, 40, 0.7);
-
-  /* Glows (Candy Colors) */
-  --glow-apricot: #ffb170;
-  --glow-melonRed: #ff6a6a;
-  --glow-electricBlue: #64c8ff;
-  --glow-candyPink: #ff7fd1;
-  --glow-sunflower: #ffd447;
-  --glow-forestGreen: #5fcc7a;
-  --glow-brown: #a56b4f;
-  --glow-vcrRed: #ff3b3b;
-  --glow-periwinkle: #a5a8ff;
-
-  /* Accents */
-  --accent-purple: #4d3c78;
-  --accent-indigo: #2a235a;
-  --accent-midnight: #121527;
-
-  /* Text */
-  --text-primary: #eaf2ff;
-  --text-secondary: #9ba8c7;
-
-  /* Spacing */
-  --spacing-xxs: 2px;
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 16px;
-  --spacing-xl: 24px;
-  --spacing-xxl: 32px;
-
-  /* Radii */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-round: 50%;
-
-  /* Shadows */
-  --shadow-softGlow: 0px 0px 12px rgba(100, 150, 255, 0.35);
-  --shadow-sharpGlow: 0px 0px 18px rgba(255, 110, 200, 0.45);
-  --shadow-ambient: 0px 4px 20px rgba(0, 0, 0, 0.35);
-
-  /* Typography */
-  --font-sans: 'Inter', 'SF Pro Text', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
+/* OswegoPark Labs – TechnologyForest Theme */
+/* CSS Variables are now set by ThemeProvider */
 
 /* Global Base */
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: var(--bg-deepNight);
-  color: var(--text-primary);
-  font-family: var(--font-sans);
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--tf-typography-font-sans);
+  background: var(--tf-colors-bg-deepNight);
+  color: var(--tf-colors-text-primary);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* Ambient star-grain texture */
-body::before {
+#root {
+  min-height: 100vh;
+}
+
+/* Ambient star-grain texture - only for night theme */
+[data-theme="technologyForest"] body::before {
   content: "";
   pointer-events: none;
   position: fixed;
@@ -80,29 +37,73 @@ body::before {
   z-index: -1;
 }
 
+/* Subtle gradient overlay for daylight theme */
+[data-theme="technologyForestDaylight"] body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.9) 100%);
+  z-index: -1;
+}
+
 /* Glow helper classes */
 .glow-blue {
-  filter: drop-shadow(0 0 8px var(--glow-electricBlue));
+  filter: drop-shadow(0 0 8px var(--tf-colors-glow-electricBlue));
 }
 
 .glow-pink {
-  filter: drop-shadow(0 0 8px var(--glow-candyPink));
+  filter: drop-shadow(0 0 8px var(--tf-colors-glow-candyPink));
 }
 
 .glow-apricot {
-  filter: drop-shadow(0 0 8px var(--glow-apricot));
+  filter: drop-shadow(0 0 8px var(--tf-colors-glow-apricot));
 }
 
 /* Floating panels */
 .oswego-panel {
-  background: var(--bg-panel);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(14px);
-  box-shadow: var(--shadow-ambient);
-  padding: var(--spacing-lg);
+  background: var(--tf-colors-bg-panel);
+  border-radius: var(--tf-radii-lg);
+  backdrop-filter: blur(var(--tf-blur-md));
+  box-shadow: var(--tf-shadows-ambient);
+  padding: var(--tf-spacing-lg);
+  border: 1px solid var(--tf-colors-border-primary);
 }
 
 /* Better touch responsiveness */
 * {
   touch-action: manipulation;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--tf-colors-bg-forestShadow);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--tf-colors-border-primary);
+  border-radius: var(--tf-radii-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tf-colors-glow-electricBlue);
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--tf-colors-glow-electricBlue);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
